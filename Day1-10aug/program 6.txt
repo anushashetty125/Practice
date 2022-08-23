@@ -1,0 +1,143 @@
+import java.util.Scanner;
+import java.lang.Math;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.Date;
+class Account
+{
+    private int id;
+    private double balance,annualInterestRate=4.5;
+    private Date dateCreated;
+    Scanner sc=new Scanner(System.in);
+    Account()
+    {
+        
+    }
+    Account(int id, double balance)
+    {
+        this.id=id;
+        this.balance=balance;
+    }
+    //to get the id
+    public int getId()
+    {
+        return id;
+    }
+    //to set the id
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+    //to get the balance
+    public double getBalance()
+    {
+        return balance;
+    }
+    //to set the balance
+    public void setBalance(int balance)
+    {
+        this.balance=balance;
+    }
+    //getter method for annualInterestRate
+    public double getAnnualInterestRate()
+    {
+        return annualInterestRate/100;
+    }
+    //setter method for annualInterestRate
+    public void setAnnualInterestRate(int annualInterestRate)
+    {
+        this.annualInterestRate=annualInterestRate;
+    }
+    //to get the date of creation
+    public void getDateCreated()
+    {
+        DateTimeFormatter dtf=DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now=LocalDateTime.now();
+        System.out.println(dtf.format(now));
+    }
+    public void setDateCreated(Date dateCreated)
+    {
+        this.dateCreated=dateCreated;
+    }
+    //to get monthly interest rate
+    public double getMonthlyInterestRate()
+    {
+        double monthlyInterestRate=annualInterestRate/12;
+        return monthlyInterestRate;
+    }
+    //to get monthly interest
+    public void getMonthlyInterest()
+    {
+        double monthlyRate= getMonthlyInterestRate();
+        double monthlyInterest=balance*monthlyRate;
+        System.out.println( monthlyInterest );
+    }
+    //to withdraw money
+    public void withdraw()
+    {
+        System.out.println("Enter the amount to withdraw");
+        long amt=sc.nextLong();
+        if( balance>amt )
+        {
+            balance=balance-amt;
+            System.out.println("Balance after withdrawal:"+balance);
+        }
+        else{
+            System.out.println("Your balance is less")  ; 
+        }
+    }
+    //to deposit money
+    public void deposit()
+    {
+        System.out.println("Enter the amount to deposit");
+        long amt=sc.nextLong();
+        balance=balance+amt;
+        System.out.println("Balance after deposit: "+balance);
+    }
+}
+public class Main
+{
+	public static void main( String[] args ) {
+	    Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the number of accounts");
+		int n=sc.nextInt();
+		Account[] account=new Account[n+1];
+		for(int i=1;i<n+1;i++)
+		{
+		    System.out.println("Enter the balance of account "+i);
+		    double balance=sc.nextDouble();
+		    account[i]=new Account(i,balance);
+		}
+		int ch;
+		do{
+		    System.out.println("Enter your choice\n1.Deposit\n2.Withdraw\n3.Balance\n4.Monthly interest\n5.date of creation\n6.Exit");
+		    ch=sc.nextInt();
+		    int id;
+		        switch(ch){
+		            case 1:System.out.println("Enter the id to deposit");
+		                   id=sc.nextInt();
+		                   account[id].deposit();
+		                   break;
+		            case 2:System.out.println("Enter the id to withdraw");
+		                   id=sc.nextInt();
+		                   account[id].withdraw();
+		                   break;
+		            case 3:System.out.println("Enter the id to check balance");
+		                   id=sc.nextInt();
+		                   double balance=account[id].getBalance();
+		                   System.out.println("balance of account "+id+"="+balance);
+		                   break;
+		            case 4:System.out.println("Enter the id to check monthly interest");
+		                   id=sc.nextInt();
+		                   account[id].getMonthlyInterest();
+		                   break;
+		            case 5:System.out.println("Enter the id to check date of creation");
+		                   id=sc.nextInt();
+		                   account[id].getDateCreated();
+		                   break;
+		            case 6:System.out.println("no more choice");
+		                   break;
+		        }    
+		}while(ch!=6);
+	}
+}

@@ -1,0 +1,19 @@
+import java.util.*;
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		String str1,str2;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the first string");
+		str1=sc.nextLine();
+		System.out.println("Enter the second string");
+		str2=sc.nextLine();
+		if(str1.equalsIgnoreCase(str2))
+		{
+		    System.out.println("They are same");
+		}
+		else
+		    System.out.println("They are different");
+	}
+}
